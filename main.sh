@@ -16,7 +16,7 @@ read -p "Do you want to customize the installation? (yes/no): " customize
 # Default option to install everything
 if [ "$customize" != "yes" ]; then
     echo "Installing all packages..."
-    are_all_core_packages_installed || core
+    core
     install_ghcli
     install_nodejs
 else
@@ -34,7 +34,7 @@ else
     for option in "${options[@]}"; do
         if ! [[ " ${skip_arr[@]} " =~ " ${option} " ]]; then
             case $option in
-                1) are_all_core_packages_installed || core ;;
+                1) core ;;
                 2) install_ghcli;;
                 3) install_nodejs;;
                 *) echo "Invalid option: $option" ;;
