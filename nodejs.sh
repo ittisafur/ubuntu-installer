@@ -27,6 +27,9 @@ install_nodejs() {
     echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $USER_HOME/.zshrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> $USER_HOME/.zshrc
 
+    echo "Source .zshrc..."
+    source $USER_HOME/.zshrc
+
     echo "Installing latest LTS version of Node.js..."
     nvm install --lts
 
