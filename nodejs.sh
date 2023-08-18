@@ -12,11 +12,12 @@ nodejs() {
 # Install Node.js
 install_nodejs() {
 
-    echo "Installing NVM (Node Version Manager)..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
     # Get the actual user's home directory
     USER_HOME=$(eval echo ~$SUDO_USER)
+
+    echo "Installing NVM (Node Version Manager)..."
+    sudo -u $SUDO_USER curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | sudo -u $SUDO_USER bash
+
     
     export NVM_DIR="$USER_HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

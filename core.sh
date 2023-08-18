@@ -36,25 +36,25 @@ install_core(){
     echo "Changing default shell to ZSH..."
     chsh -s $(which zsh) $USER
     echo "Installing ZAP..."
-    zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+    sudo -u $SUDO_USER zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
     
-    echo "Configuring ZAP in .zshrc..."
-    {
-        echo "# Created by Zap installer"
-        echo "[ -f \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\" ] && source \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\""
-        echo "plug \"zsh-users/zsh-autosuggestions\""
-        echo "plug \"zap-zsh/supercharge\""
-        echo "plug \"zap-zsh/zap-prompt\""
-        echo "plug \"zsh-users/zsh-syntax-highlighting\""
-        echo "plug \"zap-zsh/sudo\""
-        echo "plug \"zap-zsh/supercharge\""
-        echo "plug \"zap-zsh/exa\""
-        echo "plug \"zap-zsh/completions\""
-        echo ""
-        echo "# Load and initialise completion system"
-        echo "autoload -Uz compinit"
-        echo "compinit"
-    } >> "$HOME/.zshrc"
+    # echo "Configuring ZAP in .zshrc..."
+    # {
+    #     echo "# Created by Zap installer"
+    #     echo "[ -f \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\" ] && source \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\""
+    #     echo "plug \"zsh-users/zsh-autosuggestions\""
+    #     echo "plug \"zap-zsh/supercharge\""
+    #     echo "plug \"zap-zsh/zap-prompt\""
+    #     echo "plug \"zsh-users/zsh-syntax-highlighting\""
+    #     echo "plug \"zap-zsh/sudo\""
+    #     echo "plug \"zap-zsh/supercharge\""
+    #     echo "plug \"zap-zsh/exa\""
+    #     echo "plug \"zap-zsh/completions\""
+    #     echo ""
+    #     echo "# Load and initialise completion system"
+    #     echo "autoload -Uz compinit"
+    #     echo "compinit"
+    # } >> "$HOME/.zshrc"
 
     echo "Done installing core packages."
 }
