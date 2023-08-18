@@ -15,14 +15,17 @@ install_nodejs() {
     echo "Installing NVM (Node Version Manager)..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
-    export NVM_DIR="$HOME/.nvm"
+    # Get the actual user's home directory
+    USER_HOME=$(eval echo ~$SUDO_USER)
+    
+    export NVM_DIR="$USER_HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
     echo "Adding NVM to .zshrc..."
-    echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.zshrc
-    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.zshrc
+    echo 'export NVM_DIR="$HOME/.nvm"' >> $USER_HOME/.zshrc
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $USER_HOME/.zshrc
+    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> $USER_HOME/.zshrc
 
     echo "Installing latest LTS version of Node.js..."
     nvm install --lts
