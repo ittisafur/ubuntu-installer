@@ -8,17 +8,19 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 source $(pwd)/core.sh
-# source $(pwd)/nodejs.sh
+source $(pwd)/nodejs.sh
 
 # Prompt user to select modules to run
 echo "Select the options you want to install:"
 echo "1. Core Packages"
+echo "2. NodeJS"
 read -p "Enter the numbers (separated by space) of the options you want to install: " options
 
 # Run the selected modules
 for option in $options; do
     case $option in
         1) core ;;
+        2) install_nodejs ;;
         *) echo "Invalid option: $option" ;;
     esac
 done
