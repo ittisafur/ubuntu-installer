@@ -24,6 +24,7 @@ else
     echo "Select the options you want to SKIP:"
     echo "1. Core Packages"
     echo "2. GH CLI"
+    echo "3. Node.js"
     read -p "Enter the numbers (separated by space) of the options you want to SKIP: " skip_options
 
     # Array to hold the options that the user wants to skip
