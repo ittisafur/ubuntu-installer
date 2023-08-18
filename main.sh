@@ -17,8 +17,8 @@ read -p "Do you want to customize the installation? (yes/no): " customize
 if [ "$customize" != "yes" ]; then
     echo "Installing all packages..."
     core
-    install_ghcli
-    install_nodejs
+    ghcli
+    nodejs
 else
     # Ask the user to customize the installation
     echo "Select the options you want to SKIP:"

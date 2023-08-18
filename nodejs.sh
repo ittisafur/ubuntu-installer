@@ -1,11 +1,25 @@
 #!/bin/bash
 
 # Check if Node.js is installed
-is_nodejs_installed() {
-    if [ -x "$(command -v node)" ] && [ -x "$(command -v npm)" ]; then
-        return 0
+nodejs() {
+    echo "Checking Node.js, npm, yarn, and pnpm installation status..."
+
+    echo "Node.js: $(command -v node)"
+    echo "Exit status for Node.js: $?"
+    
+    echo "npm: $(command -v npm)"
+    echo "Exit status for npm: $?"
+    
+    echo "yarn: $(command -v yarn)"
+    echo "Exit status for yarn: $?"
+    
+    echo "pnpm: $(command -v pnpm)"
+    echo "Exit status for pnpm: $?"
+
+    if [ -x "$(command -v node)" ] && [ -x "$(command -v npm)" ] && [ -x "$(command -v yarn)" ] && [ -x "$(command -v pnpm)" ]; then
+        echo "Node.js, npm, yarn, and pnpm are already installed."
     else
-        return 1
+        install_nodejs
     fi
 }
 

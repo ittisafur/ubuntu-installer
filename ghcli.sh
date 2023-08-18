@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Check if GH CLI is installed
-is_ghcli_installed() {
+ghcli() {
     if [ -x "$(command -v gh)" ]; then
-        return 0
+        echo "GH CLI is already installed."
     else
-        return 1
+        install_ghcli
     fi
 }
 
