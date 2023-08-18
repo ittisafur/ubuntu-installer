@@ -3,27 +3,45 @@
 # Check if the script is running as root
 if [ "$EUID" -ne 0 ]; then
     echo "Please run this script with superuser privileges."
-    echo "Use: sudo ./install.sh"
+    echo "Use: sudo ./main.sh"
     exit 1
 fi
 
 source $(pwd)/core.sh
 source $(pwd)/nodejs.sh
+source $(pwd)/ghcli.sh
 
-# Prompt user to select modules to run
-echo "Select the options you want to install:"
-echo "1. Core Packages"
-echo "2. NodeJS"
-read -p "Enter the numbers (separated by space) of the options you want to install: " options
+read -p "Do you want to customize the installation? (yes/no): " customize
 
-# Run the selected modules
-for option in $options; do
-    case $option in
-        1) core ;;
-        2) install_nodejs ;;
-        *) echo "Invalid option: $option" ;;
-    esac
-done
+# Default option to install everything
+if [ "$customize" != "yes" ]; then
+    echo "Installing all packages..."
+    core
+    install_nodejs
+else
+    # Ask the user to customize the installation
+    echo "Select the options you want to SKIP:"
+    echo "1. Core Packages"
+    echo "2. NodeJS"
+    read -p "Enter the numbers (separated by space) of the options you want to SKIP: " skip_options
+
+    # Array to hold the options that the user wants to skip
+    skip_arr=($skip_options)
+
+    # Run the selected modules, skipping those that the user specified
+    options=(1 2)  # ... add other option numbers as needed
+    for option in "${options[@]}"; do
+        if ! [[ " ${skip_arr[@]} " =~ " ${option} " ]]; then
+            case $option in
+                1) core ;;
+                2) install_nodejs ;;
+                3) install_ghcli ;;
+                # ... other options
+                *) echo "Invalid option: $option" ;;
+            esac
+        fi
+    done
+fi
 
 echo "Installation completed."
 
