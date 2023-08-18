@@ -36,7 +36,7 @@ install_core(){
     echo "Changing default shell to ZSH..."
     chsh -s $(which zsh) $USER
     echo "Installing ZAP..."
-    sudo -u $SUDO_USER zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+    sudo su - $SUDO_USER -c "zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1"
     
     # echo "Configuring ZAP in .zshrc..."
     # {
