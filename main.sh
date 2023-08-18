@@ -18,6 +18,7 @@ if [ "$customize" != "yes" ]; then
     echo "Installing all packages..."
     core
     install_nodejs
+    install_ghcli
 else
     # Ask the user to customize the installation
     echo "Select the options you want to SKIP:"

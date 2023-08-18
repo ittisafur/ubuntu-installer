@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check if the all the required packages are installed
+is_installed() {
+    if [ -x "$(command -v $1)" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
 
 # Install Core Packages and Update System
 core() {
