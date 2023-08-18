@@ -25,24 +25,70 @@ nodejs() {
 
 # Install Node.js
 install_nodejs() {
-    echo "Installing Node.js, npm, yarn, and pnpm..."
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-    apt install -y nodejs
-    npm i -g npm@latest
+
+    echo "Installing NVM (Node Version Manager)..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+    echo "Adding NVM to .zshrc..."
+    echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.zshrc
+    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.zshrc
+
+    echo "Installing latest LTS version of Node.js..."
+    nvm install --lts
+
+    echo "Setting the default Node.js version..."
+    nvm alias default node
+
+    echo "Node.js version: $(node -v)"
+    echo "npm version: $(npm -v)"
+
     echo "Adding Yarn"
     npm install -g yarn
     echo "Adding Pnpm"
     npm install -g pnpm
-    echo "Node.js, npm, yarn, and pnpm are installed."
+
+    echo "Done installing Node.js, npm, yarn, and pnpm."
 }
 
 # Remove Node.js
 remove_nodejs() {
-    echo "Removing Node.js, npm, yarn, and pnpm..."
-    apt remove -y nodejs
+    echo "Removing NVM Node.js, npm, yarn, and pnpm..."
     npm uninstall -g npm
     npm uninstall -g yarn
     npm uninstall -g pnpm
+
+    rm -rf ~/.nvm
+    rm -rf ~/.npm
+    rm -rf ~/.yarn
+    rm -rf ~/.pnpm
+    rm -rf ~/.config/yarn
+    rm -rf ~/.config/pnpm
+    rm -rf ~/.local/share/yarn
+    rm -rf ~/.local/share/pnpm
+    rm -rf ~/.cache/yarn
+    rm -rf ~/.cache/pnpm
+    rm -rf ~/.node-gyp
+    rm -rf ~/.npmrc
+    rm -rf ~/.pnpm-store
+    rm -rf ~/.yarnrc
+    rm -rf ~/.yarnrc.yml
+    rm -rf ~/.yarnignore
+    rm -rf ~/.yarn-integrity
+    rm -rf ~/.yarn-metadata.json
+    rm -rf ~/.yarn-tarball.tgz
+    rm -rf ~/.yarn
+    rm -rf ~/.pnpm-lock.yaml
+    rm -rf ~/.pnpm
+    rm -rf ~/.pnpm-store
+    rm -rf ~/.pnpmfile.cjs
+    rm -rf ~/.pnpmfile.js
+    rm -rf ~/.pnpmfile.json
+    rm -rf ~/.pnpm-workspace.yaml
     echo "Node.js, npm, yarn, and pnpm are removed."
 }
 
