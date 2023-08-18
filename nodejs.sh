@@ -24,7 +24,7 @@ install_nodejs() {
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
     echo "Adding NVM to .zshrc..."
-    echo 'export NVM_DIR="$HOME/.nvm"' >> $USER_HOME/.zshrc
+    echo - '\nexport NVM_DIR="$HOME/.nvm"' >> $USER_HOME/.zshrc
     echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $USER_HOME/.zshrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> $USER_HOME/.zshrc
 

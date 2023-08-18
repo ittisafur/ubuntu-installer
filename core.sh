@@ -36,25 +36,10 @@ install_core(){
     echo "Changing default shell to ZSH..."
     chsh -s $(which zsh) $USER
     echo "Installing ZAP..."
-    sudo su - $SUDO_USER -c "zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1"
+    temp_file=$(sudo -u $SUDO_USER mktemp)
+    sudo -u $SUDO_USER curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | sudo -u $SUDO_USER tee "$temp_file" > /dev/null
+    sudo -u $SUDO_USER zsh "$temp_file" --branch release-v1
+    sudo -u $SUDO_USER rm "$temp_file"
     
-    # echo "Configuring ZAP in .zshrc..."
-    # {
-    #     echo "# Created by Zap installer"
-    #     echo "[ -f \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\" ] && source \"\${XDG_DATA_HOME:-\$HOME/.local/share}/zap/zap.zsh\""
-    #     echo "plug \"zsh-users/zsh-autosuggestions\""
-    #     echo "plug \"zap-zsh/supercharge\""
-    #     echo "plug \"zap-zsh/zap-prompt\""
-    #     echo "plug \"zsh-users/zsh-syntax-highlighting\""
-    #     echo "plug \"zap-zsh/sudo\""
-    #     echo "plug \"zap-zsh/supercharge\""
-    #     echo "plug \"zap-zsh/exa\""
-    #     echo "plug \"zap-zsh/completions\""
-    #     echo ""
-    #     echo "# Load and initialise completion system"
-    #     echo "autoload -Uz compinit"
-    #     echo "compinit"
-    # } >> "$HOME/.zshrc"
-
     echo "Done installing core packages."
 }
